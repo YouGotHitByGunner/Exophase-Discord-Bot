@@ -69,7 +69,10 @@ module.exports = {
 			axios.get(`${url}/partner/v1/player/${exophase.playerid}/games`, config).then(async response => {
 				console.log(response.data);
 				const exophase2 = response.data;
-				const percentageLastGame = (exophase2.games[0].earned_awards / exophase2.games[0].total_awards) * 100;
+				let percentageLastGame = (exophase2.games[0].earned_awards / exophase2.games[0].total_awards) * 100;
+				if (isNaN(percentageLastGame)) {
+					percentageLastGame = 0;
+				}
 
 
 				axios.get(`${url}/partner/v1/game/${exophase2.games[0].master_id}`, config).then(async response => {

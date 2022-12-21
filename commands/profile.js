@@ -63,12 +63,27 @@ module.exports = {
 			const unearnedAchievements = exophase.possible_awards - exophase.earned_awards;
 			const percentage = (exophase.earned_awards / exophase.possible_awards) * 100;
 			const encodedUsername = encodeURIComponent(exophase.username);
+
+
+			///Last Played Game implementation
+			axios.get(`${url}/partner/v1/player/${exophase.playerid}/games`, config).then(async response => {
+				console.log(response.data);
+				const exophase2 = response.data;
+				const percentageLastGame = (exophase2.games[0].earned_awards / exophase2.games[0].total_awards) * 100;
+
+
+				axios.get(`${url}/partner/v1/game/${exophase2.games[0].master_id}`, config).then(async response => {
+				console.log(response.data);
+				const exophase3 = response.data;
+
+
 			const exampleEmbed = new EmbedBuilder()
 				.setColor("#0099ff")
 				.setTitle(`${exophase.displayname}'s Profile`)
 				.setURL(`https://www.exophase.com/user/${encodedUsername}`)
-				.setDescription(`<:rank:1053101438416470026> Cross-Platform Rank: ${exophase.rank_ww.toLocaleString("en-US")}\n<:completed:1053116800956641330> Completed Games: ${exophase.completed_games.toLocaleString("en-US")}\n<:trophy:1053286071343001630> Total Achievements Earned: ${exophase.earned_awards.toLocaleString("en-US")}\n<:percentage:1053278129021526046> Completion Percentage: ${percentage.toFixed(2)}% \n<:trophy:1053286071343001630> Unearned Achievements: ${unearnedAchievements.toLocaleString("en-US")}`)
-				.setThumbnail(`${exophase.avatar}`);
+				.setDescription(`<:rank:1053101438416470026> Cross-Platform Rank: ${exophase.rank_ww.toLocaleString("en-US")}\n<:completed:1053116800956641330> Completed Games: ${exophase.completed_games.toLocaleString("en-US")}\n<:trophy:1053286071343001630> Total Achievements Earned: ${exophase.earned_awards.toLocaleString("en-US")}\n<:percentage:1053278129021526046> Completion Percentage: ${percentage.toFixed(2)}% \n<:trophy:1053286071343001630> Unearned Achievements: ${unearnedAchievements.toLocaleString("en-US")}\n\nLast Activity: [${exophase3.game.title}](${exophase3.game.endpoint_awards}) (${exophase3.game.platforms[0].name})\n${exophase2.games[0].earned_awards} of ${exophase2.games[0].total_awards} (${percentageLastGame.toFixed()}%) achievements earned.`)
+				.setThumbnail(`${exophase.avatar}`)
+				.setImage(`${exophase3.game.images.l}`);
 
 				let commandMessage;
 			if (exophase.services.psn || exophase.services.xbox || exophase.services.steam) {
@@ -158,6 +173,8 @@ module.exports = {
 			collector.on('end', collected => {
 				console.log(`Collected ${collected.size} interactions.`);
 			});
+		})
+	})
 		}).catch(function (error) {
 			console.log(error);
 		});

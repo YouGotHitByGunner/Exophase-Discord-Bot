@@ -149,7 +149,7 @@ module.exports = {
 			collector.on('collect', async i => {
 
 				if (i.user.id !== interaction.user.id) {
-					await i.reply({ content: `You cannot navigate other people's commands.`, ephemeral: true });
+					return i.reply({ content: `You cannot navigate other people's commands.`, ephemeral: true });
 				}
 
 				if (i.customId === 'steamid') {

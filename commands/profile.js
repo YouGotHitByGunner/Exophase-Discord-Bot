@@ -84,9 +84,16 @@ module.exports = {
 				.setColor("#0099ff")
 				.setTitle(`${exophase.displayname}'s Profile`)
 				.setURL(`https://www.exophase.com/user/${encodedUsername}`)
-				.setDescription(`<:rank:1053101438416470026> Cross-Platform Rank: ${exophase.rank_ww.toLocaleString("en-US")}\n<:completed:1053116800956641330> Completed Games: ${exophase.completed_games.toLocaleString("en-US")}\n<:trophy:1053286071343001630> Total Achievements Earned: ${exophase.earned_awards.toLocaleString("en-US")}\n<:percentage:1053278129021526046> Completion Percentage: ${percentage.toFixed(2)}% \n<:trophy:1053286071343001630> Unearned Achievements: ${unearnedAchievements.toLocaleString("en-US")}\n\nLast Activity: [${exophase3.game.title}](${exophase3.game.endpoint_awards}) (${exophase3.game.platforms[0].name})\n${exophase2.games[0].earned_awards} of ${exophase2.games[0].total_awards} (${percentageLastGame.toFixed()}%) achievements earned.`)
 				.setThumbnail(`${exophase.avatar}`)
-				.setImage(`${exophase3.game.images.l}`);
+				.setImage(`${exophase3.game.images.l}`)
+				.setFields (
+					{ name: '<:rank:1053101438416470026> Global Rank:', value: `${exophase.rank_ww.toLocaleString("en-US")}`, inline: true},
+					{ name: '<:completed:1053116800956641330> Completed Games:', value: `${exophase.completed_games.toLocaleString("en-US")}`, inline: true},
+					{ name: '<:percentagev3:1055619901450092556> Completion:', value: `${percentage.toFixed(2)}%`, inline: true},
+					{ name: '<:trophy:1053286071343001630> Awards Earned:', value: `${exophase.earned_awards.toLocaleString("en-US")}`, inline: true},
+					{ name: '<:trophyunearned:1055617148430598245> Unearned Awards:', value: `${unearnedAchievements.toLocaleString("en-US")}`, inline: true},
+					{ name: 'Last Activity:', value: `[${exophase3.game.title}](${exophase3.game.endpoint_awards}) (${exophase3.game.platforms[0].name})\n${exophase2.games[0].earned_awards} of ${exophase2.games[0].total_awards} (${percentageLastGame.toFixed()}%) achievements earned.` },
+				);
 
 				let commandMessage;
 			if (exophase.services.psn || exophase.services.xbox || exophase.services.steam) {

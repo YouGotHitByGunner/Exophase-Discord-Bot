@@ -175,6 +175,7 @@ module.exports = {
 
 			collector.on('end', collected => {
 				console.log(`Collected ${collected.size} interactions.`);
+				interaction.editReply({ components: [] })
 			});
 		})
 	})

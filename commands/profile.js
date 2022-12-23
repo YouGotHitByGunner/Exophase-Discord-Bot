@@ -10,9 +10,9 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('profile')
 		.setDescription('Displays information about your Exophase profile')
-		.addStringOption(option => option.setName('input').setDescription('Username')),
+		.addStringOption(option => option.setName('username').setDescription('Enter your Exophase username')),
 	async execute(interaction) {
-		const input = interaction.options.getString('input');
+		const input = interaction.options.getString('username');
 
 		let config = {
 			headers: {
@@ -112,8 +112,14 @@ module.exports = {
 					.setColor("#0099ff")
 					.setTitle(`${exophase.services.steam.displayname}'s Steam Profile`)
 					.setURL(`https://www.exophase.com/steam/user/${encodedSteamUsername}`)
-					.setDescription(`<:rank:1053101438416470026> Steam Rank: ${exophase.services.steam.rank_ww.toLocaleString("en-US")}\n<:completed:1053116800956641330> Completed Games: ${exophase.services.steam.completed_games.toLocaleString("en-US")}\n<:trophy:1053286071343001630> Total Achievements Earned: ${exophase.services.steam.earned_awards.toLocaleString("en-US")}\n<:percentage:1053278129021526046> Completion Percentage: ${percentageSteam.toFixed(2)}% \n<:trophy:1053286071343001630> Unearned Achievements: ${unearnedSteamAchievements.toLocaleString("en-US")}`)
 					.setThumbnail(`${exophase.services.steam.avatar}`)
+					.setFields(
+						{ name: '<:rank:1053101438416470026> Steam Rank:', value: `${exophase.services.steam.rank_ww.toLocaleString("en-US")}`, inline: true},
+						{ name: '<:completed:1053116800956641330> Completed Games:', value: `${exophase.services.steam.completed_games.toLocaleString("en-US")}`, inline: true},
+						{ name: '<:percentagev3:1055619901450092556> Completion:', value: `${percentageSteam.toFixed(2)}%`, inline: true},
+						{ name: '<:trophy:1053286071343001630> Achievements Earned:', value: `${exophase.services.steam.earned_awards.toLocaleString("en-US")}`, inline: true},
+						{ name: '<:trophyunearned:1055617148430598245> Unearned Achievements:', value: `${unearnedSteamAchievements.toLocaleString("en-US")}`, inline: true},
+					)
 			}
 
 			// PSN Embed implementation
@@ -126,8 +132,14 @@ module.exports = {
 					.setColor("#0099ff")
 					.setTitle(`${exophase.services.psn.displayname}'s PSN Profile`)
 					.setURL(`https://www.exophase.com/psn/user/${encodedPsnUsername}`)
-					.setDescription(`<:rank:1053101438416470026> PSN Rank: ${exophase.services.psn.rank_ww.toLocaleString("en-US")}\n<:completed:1053116800956641330> Completed Games: ${exophase.services.psn.completed_games.toLocaleString("en-US")}\n<:trophy:1053286071343001630> Total Trophies Earned: ${exophase.services.psn.earned_awards.toLocaleString("en-US")}\n<:percentage:1053278129021526046> Completion Percentage: ${percentagePsn.toFixed(2)}% \n<:trophy:1053286071343001630> Unearned Trophies: ${unearnedPsnTrophies.toLocaleString("en-US")}`)
 					.setThumbnail(`${exophase.services.psn.avatar}`)
+					.setFields(
+						{ name: '<:rank:1053101438416470026> PSN Rank:', value: `${exophase.services.psn.rank_ww.toLocaleString("en-US")}`, inline: true},
+						{ name: '<:completed:1053116800956641330> Completed Games:', value: `${exophase.services.psn.completed_games.toLocaleString("en-US")}`, inline: true},
+						{ name: '<:percentagev3:1055619901450092556> Completion:', value: `${percentagePsn.toFixed(2)}%`, inline: true},
+						{ name: '<:trophy:1053286071343001630> Trophies Earned:', value: `${exophase.services.psn.earned_awards.toLocaleString("en-US")}`, inline: true},
+						{ name: '<:trophyunearned:1055617148430598245> Unearned Trophies:', value: `${unearnedPsnTrophies.toLocaleString("en-US")}`, inline: true}
+					)
 			}
 
 			// Xbox Embed implementation
@@ -140,8 +152,15 @@ module.exports = {
 					.setColor("#0099ff")
 					.setTitle(`${exophase.services.xbox.displayname}'s Steam Profile`)
 					.setURL(`https://www.exophase.com/xbox/user/${encodedXboxUsername}`)
-					.setDescription(`<:rank:1053101438416470026> Xbox Rank: ${exophase.services.xbox.rank_ww.toLocaleString("en-US")}\n<:completed:1053116800956641330> Completed Games: ${exophase.services.xbox.completed_games.toLocaleString("en-US")}\n<:trophy:1053286071343001630> Total Achievements Earned: ${exophase.services.xbox.earned_awards.toLocaleString("en-US")}\n<:percentage:1053278129021526046> Completion Percentage: ${percentageXbox.toFixed(2)}% \n<:trophy:1053286071343001630> Unearned Achievements: ${unearnedXboxAchievements.toLocaleString("en-US")}`)
+					.setDescription(`\n\n\n\n`)
 					.setThumbnail(`${exophase.services.xbox.avatar}`)
+					.setFields(
+						{ name: '<:rank:1053101438416470026> Xbox Rank:', value: `${exophase.services.xbox.rank_ww.toLocaleString("en-US")}`, inline: true},
+						{ name: '<:completed:1053116800956641330> Completed Games:', value: `${exophase.services.xbox.completed_games.toLocaleString("en-US")}`, inline: true},
+						{ name: '<:percentagev3:1055619901450092556> Completion:', value: `${percentageXbox.toFixed(2)}%`, inline: true},
+						{ name: '<:trophy:1053286071343001630> Achievements Earned:', value: `${exophase.services.xbox.earned_awards.toLocaleString("en-US")}`, inline: true},
+						{ name: '<:trophyunearned:1055617148430598245> Unearned Achievements:', value: `${unearnedXboxAchievements.toLocaleString("en-US")}`, inline: true},
+					)
 			}
 
 			const crossPlatform = new ActionRowBuilder()

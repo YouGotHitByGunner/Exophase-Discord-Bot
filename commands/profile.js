@@ -61,7 +61,10 @@ module.exports = {
 				);
 			}
 			const unearnedAchievements = exophase.possible_awards - exophase.earned_awards;
-			const percentage = (exophase.earned_awards / exophase.possible_awards) * 100;
+			let percentage = (exophase.earned_awards / exophase.possible_awards) * 100;
+			if (isNaN(percentage)) {
+				percentage = 0;
+			}
 			const encodedUsername = encodeURIComponent(exophase.username);
 
 
@@ -106,7 +109,10 @@ module.exports = {
 			let steamEmbed;
 			if (exophase.services.steam) {
 				const unearnedSteamAchievements = exophase.services.steam.possible_awards - exophase.services.steam.earned_awards;
-				const percentageSteam = (exophase.services.steam.earned_awards / exophase.services.steam.possible_awards) * 100;
+				let percentageSteam = (exophase.services.steam.earned_awards / exophase.services.steam.possible_awards) * 100;
+				if (isNaN(percentageSteam)) {
+					percentageSteam = 0;
+				}
 				const encodedSteamUsername = encodeURIComponent(exophase.services.steam.username);
 				steamEmbed = new EmbedBuilder()
 					.setColor("#0099ff")
@@ -126,7 +132,10 @@ module.exports = {
 			let PsnEmbed;
 			if (exophase.services.psn) {
 				const unearnedPsnTrophies = exophase.services.psn.possible_awards - exophase.services.psn.earned_awards;
-				const percentagePsn = (exophase.services.psn.earned_awards / exophase.services.psn.possible_awards) * 100;
+				let percentagePsn = (exophase.services.psn.earned_awards / exophase.services.psn.possible_awards) * 100;
+				if (isNaN(percentagePsn)) {
+					percentagePsn = 0;
+				}
 				const encodedPsnUsername = encodeURIComponent(exophase.services.psn.username);
 				PsnEmbed = new EmbedBuilder()
 					.setColor("#0099ff")
@@ -146,7 +155,10 @@ module.exports = {
 			let xboxEmbed
 			if (exophase.services.xbox) {
 				const unearnedXboxAchievements = exophase.services.xbox.possible_awards - exophase.services.xbox.earned_awards;
-				const percentageXbox = (exophase.services.xbox.earned_awards / exophase.services.xbox.possible_awards) * 100;
+				let percentageXbox = (exophase.services.xbox.earned_awards / exophase.services.xbox.possible_awards) * 100;
+				if (isNaN(percentageXbox)) {
+					percentageXbox = 0;
+				}
 				const encodedXboxUsername = encodeURIComponent(exophase.services.xbox.username);
 				xboxEmbed = new EmbedBuilder()
 					.setColor("#0099ff")

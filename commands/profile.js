@@ -164,7 +164,6 @@ module.exports = {
 					.setColor("#0099ff")
 					.setTitle(`${exophase.services.xbox.displayname}'s Steam Profile`)
 					.setURL(`https://www.exophase.com/xbox/user/${encodedXboxUsername}`)
-					.setDescription(`\n\n\n\n`)
 					.setThumbnail(`${exophase.services.xbox.avatar}`)
 					.setFields(
 						{ name: '<:rank:1053101438416470026> Xbox Rank:', value: `${exophase.services.xbox.rank_ww.toLocaleString("en-US")}`, inline: true},
@@ -213,7 +212,11 @@ module.exports = {
 
 			collector.on('end', collected => {
 				console.log(`Collected ${collected.size} interactions.`);
-				interaction.editReply({ components: [] })
+				interaction.editReply({ components: [] }).catch(error => {
+					if (error.code !== 10008) {
+						console.error('Failed to delete the buttons:', error);
+					}
+				})
 			});
 		})
 	})

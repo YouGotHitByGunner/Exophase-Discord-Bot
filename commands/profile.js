@@ -10,7 +10,7 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('profile')
 		.setDescription('Displays information about your Exophase profile')
-		.addStringOption(option => option.setName('username').setDescription('Enter your Exophase username')),
+		.addStringOption(option => option.setName('username').setDescription("Enter the user's Exophase username")),
 	async execute(interaction) {
 		const input = interaction.options.getString('username');
 
@@ -61,6 +61,9 @@ module.exports = {
 				);
 			}
 			const unearnedAchievements = exophase.possible_awards - exophase.earned_awards;
+
+			const rankEmoji = interaction.client.emojis.cache.find(e => e.id === '1053101438416470026')
+
 			let percentage = (exophase.earned_awards / exophase.possible_awards) * 100;
 			if (isNaN(percentage)) {
 				percentage = 0;

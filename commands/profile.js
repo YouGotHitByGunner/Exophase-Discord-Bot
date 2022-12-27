@@ -61,9 +61,6 @@ module.exports = {
 				);
 			}
 			const unearnedAchievements = exophase.possible_awards - exophase.earned_awards;
-
-			const rankEmoji = interaction.client.emojis.cache.find(e => e.id === '1053101438416470026')
-
 			let percentage = (exophase.earned_awards / exophase.possible_awards) * 100;
 			if (isNaN(percentage)) {
 				percentage = 0;
@@ -80,6 +77,18 @@ module.exports = {
 					percentageLastGame = 0;
 				}
 
+				let progressBar;
+				if (percentageLastGame == 100) {
+					progressBar = '<:100_part1:1057099192843116634><:100_part2:1057099194436943982><:100_part2:1057099194436943982><:100_part2:1057099194436943982><:100_part2:1057099194436943982><:100_part2:1057099194436943982><:100_part2:1057099194436943982><:100_part2:1057099194436943982><:100_part2:1057099194436943982><:100_part3:1057099196014014525>';
+				} else if (percentageLastGame == 0) {
+					progressBar = '<:0_part1:1057101345083113502><:0_part2:1057101346597257217><:0_part2:1057101346597257217><:0_part2:1057101346597257217><:0_part2:1057101346597257217><:0_part2:1057101346597257217><:0_part2:1057101346597257217><:0_part2:1057101346597257217><:0_part2:1057101346597257217><:0_part3:1057101347960406036>';
+				} else if (percentageLastGame >= 75) {
+					progressBar = '<:progress_part1:1057107355503960124><:progress_part2:1057107357009727548><:progress_part2:1057107357009727548><:progress_part2:1057107357009727548><:progress_part2:1057107357009727548><:progress_part2:1057107357009727548><:progress_part2:1057107357009727548><:progress_part2:1057107357009727548><:0_part2:1057101346597257217><:0_part3:1057101347960406036>';
+				} else if (percentageLastGame < 50) {
+					progressBar = '<:progress_part1:1057107355503960124><:progress_part2:1057107357009727548><:0_part2:1057101346597257217><:0_part2:1057101346597257217><:0_part2:1057101346597257217><:0_part2:1057101346597257217><:0_part2:1057101346597257217><:0_part2:1057101346597257217><:0_part2:1057101346597257217><:0_part3:1057101347960406036>';
+				} else if (percentageLastGame >= 50) {
+					progressBar = '<:progress_part1:1057107355503960124><:progress_part2:1057107357009727548><:progress_part2:1057107357009727548><:progress_part2:1057107357009727548><:progress_part2:1057107357009727548><:0_part2:1057101346597257217><:0_part2:1057101346597257217><:0_part2:1057101346597257217><:0_part2:1057101346597257217><:0_part3:1057101347960406036>';
+				}
 
 				axios.get(`${url}/partner/v1/game/${exophase2.games[0].master_id}`, config).then(async response => {
 				console.log(response.data);
@@ -98,7 +107,7 @@ module.exports = {
 					{ name: '<:percentagev3:1055619901450092556> Completion:', value: `${percentage.toFixed(2)}%`, inline: true},
 					{ name: '<:trophy:1053286071343001630> Awards Earned:', value: `${exophase.earned_awards.toLocaleString("en-US")}`, inline: true},
 					{ name: '<:trophyunearned:1055617148430598245> Unearned Awards:', value: `${unearnedAchievements.toLocaleString("en-US")}`, inline: true},
-					{ name: 'Last Activity:', value: `[${exophase3.game.title}](${exophase3.game.endpoint_awards}) (${exophase3.game.platforms[0].name})\n${exophase2.games[0].earned_awards} of ${exophase2.games[0].total_awards} (${percentageLastGame.toFixed()}%) achievements earned.` },
+					{ name: 'Last Activity:', value: `[${exophase3.game.title}](${exophase3.game.endpoint_awards}) (${exophase3.game.platforms[0].name})\n${progressBar}\n${exophase2.games[0].earned_awards} of ${exophase2.games[0].total_awards} (${percentageLastGame.toFixed()}%) achievements earned.` },
 				);
 
 				let commandMessage;

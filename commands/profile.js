@@ -119,8 +119,8 @@ module.exports = {
 					{ name: '<:percentagev3:1055619901450092556> Completion:', value: `${percentage.toFixed(2)}%`, inline: true},
 					{ name: '<:trophy:1053286071343001630> Awards Earned:', value: `${exophase.earned_awards.toLocaleString("en-US")}`, inline: true},
 					{ name: '<:trophyunearned:1055617148430598245> Unearned Awards:', value: `${unearnedAchievements.toLocaleString("en-US")}`, inline: true},
-					{ name: 'Last Activity:', value: `[${exophase3.game.title}](${exophase3.game.endpoint_awards}) (${exophase3.game.platforms[0].name})\n${progressBar}\n${exophase2.games[0].earned_awards} of ${exophase2.games[0].total_awards} (${percentageLastGame.toFixed()}%) achievements earned.` },
-					{ name: 'Last Played:', value: `<t:${exophase2.games[0].lastplayed}:D>`}
+					{ name: 'Last Activity:', value: `[${exophase3.game.title}](${exophase3.game.endpoint_awards}) (${exophase3.game.platforms[0].name})\n${progressBar}\n${exophase2.games[0].earned_awards} of ${exophase2.games[0].total_awards} (${percentageLastGame.toFixed()}%) achievements earned.`},
+					{ name: 'Last Played:', value: `<t:${exophase2.games[0].lastplayed}:D>`},
 				);
 
 				let commandMessage;
